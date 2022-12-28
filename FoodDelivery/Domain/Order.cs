@@ -1,5 +1,5 @@
-﻿// <copyright file="Order.cs" company="Дюдя, Капанин, Паньков & Сесягина">
-// Copyright (c) Дюдя В. А., Капанин А. А., Паньков Р. В., Сесягина А. А. 2022.
+﻿// <copyright file="Order.cs" company="ActiVia">
+// Copyright (c) ActiVia 2022.
 // </copyright>
 
 namespace Domain
@@ -7,133 +7,56 @@ namespace Domain
     /// <summary>
     /// Заказ.
     /// </summary>
-    public class Order
+    public class Order : IEquatable<Order>
     {
-        private string getTime;
-        private string deliveryTime;
-
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Order"/>.
         /// </summary>
-        /// <param name="adress"> Адрес доставки заказа.</param>
-        /// <param name="getHours"> Час поступления заказа.</param>
-        /// <param name="getMinutes"> Минута поступления заказа.</param>
-        /// <param name="getSeconds"> Секунда поступления заказа.</param>
-        /// <param name="deliveryHours"> Час доставки заказа.</param>
-        /// <param name="deliveryMinutes"> Минута доставки заказа.</param>
-        /// <param name="deliverySeconds"> Секунда доставки заказа.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Order(string adress, uint getHours, uint getMinutes, uint getSeconds, uint deliveryHours, uint deliveryMinutes, uint deliverySeconds)
+        /// <param name="address"> Адрес доставки. </param>
+        /// <param name="getTime"> Время получения заказа. </param>
+        /// <param name="deliveryTime"> Время доставки заказа. </param>
+        /// <exception cref="ArgumentNullException">Выброс ошибки.</exception>
+
+        public Order(string address, TimeOnly getTime, TimeOnly deliveryTime)
         {
-            this.Adress = adress ?? throw new ArgumentNullException(nameof(adress));
-            this.GetHours = getHours;
-            this.GetMinutes = getMinutes;
-            this.GetSeconds = getSeconds;
-            this.getTime = this.GetTime;
-            this.DeliveryHours = deliveryHours;
-            this.DeliveryMinutes = deliveryMinutes;
-            this.DeliverySeconds = deliverySeconds;
-            this.deliveryTime = this.DeliveryTime;
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                throw new ArgumentNullException(nameof(address));
+            }
+            this.Id = Guid.NewGuid();
+            this.Adress = address;
+            this.GetTime = getTime;
+            this.DeliveryTime = deliveryTime;
         }
 
         /// <summary>
         /// Идентификатор.
         /// </summary>
-        public Guid Id { get; }
+        public Guid Id { get; protected set; }
 
         /// <summary>
         /// Адрес доставки заказа.
         /// </summary>
-        public string Adress { get; }
+        public string Adress { get; protected set; }
 
         /// <summary>
-        /// Час поступления заказа.
+        /// Время получения заказа.
         /// </summary>
-        public uint GetHours { get; }
-
-        /// <summary>
-        /// Минута поступления заказа.
-        /// </summary>
-        public uint GetMinutes { get; }
-
-        /// <summary>
-        /// Секунда поступления заказа.
-        /// </summary>
-        public uint GetSeconds { get; }
-
-        /// <summary>
-        /// Час доставки заказа.
-        /// </summary>
-        public uint DeliveryHours { get; }
-
-        /// <summary>
-        /// Минута доставки заказа.
-        /// </summary>
-        public uint DeliveryMinutes { get; }
-
-        /// <summary>
-        /// Секунда доставки заказа.
-        /// </summary>
-        public uint DeliverySeconds { get; }
-
-        /// <summary>
-        /// Время поступления заказа.
-        /// </summary>
-        public string GetTime
-        {
-            get => this.getTime;
-            set
-            {
-                if (this.GetHours < 24 && this.GetMinutes < 60 && this.GetSeconds < 60)
-                {
-                    this.getTime = string.Concat(this.GetHours, ":", this.GetMinutes, ":", this.GetSeconds);
-                }
-                else
-                {
-                    throw new ArgumentNullException("Invalid get-time specified");
-                }
-            }
-        }
+        public TimeOnly GetTime { get; protected set; }
 
         /// <summary>
         /// Время доставки заказа.
         /// </summary>
-        public string DeliveryTime
-        {
-            get => this.deliveryTime;
-            set
-            {
-                if (this.DeliveryHours < 24 && this.DeliveryMinutes < 60 && this.DeliverySeconds < 60)
-                {
-                    this.deliveryTime = string.Concat(this.DeliveryHours, ":", this.DeliveryMinutes, ":", this.DeliverySeconds);
-                }
-                else
-                {
-                    throw new ArgumentNullException("Invalid delivery-time specified");
-                }
-            }
-        }
+        public TimeOnly DeliveryTime { get; protected set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object? obj)
+        public bool Equals(Order? other)
         {
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj is not Order)
-            {
-                return false;
-            }
-
-            return Equals((obj as Order)?.Id, this.Id);
+            return Equals(this.Id, other?.Id);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
             => this.Id.GetHashCode();
-
-        // !!!Еще должны быть ссылки на Person (CustomerID и CourierID)
     }
 }

@@ -1,5 +1,5 @@
-﻿// <copyright file="Product.cs" company="Дюдя, Капанин, Паньков & Сесягина">
-// Copyright (c) Дюдя В. А., Капанин А. А., Паньков Р. В., Сесягина А. А. 2022.
+﻿// <copyright file="Product.cs" company="ActiVia">
+// Copyright (c) ActiVia 2022.
 // </copyright>
 
 namespace Domain
@@ -7,49 +7,54 @@ namespace Domain
     /// <summary>
     /// Блюдо.
     /// </summary>
-    public class Product
+    public class Product : IEquatable<Product>
     {
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Product"/>.
         /// </summary>
-        /// <param name="menuName"> Название блюда.</param>
-        /// <param name="price"> Цена блюда.</param>
+        /// <param name="menuName"> Название блюда. </param>
+        /// <param name="price"> Цена блюда. </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Product(string menuName, double price)
+        public Product(string menuName, decimal price)
         {
-            this.MenuName = menuName ?? throw new ArgumentNullException(nameof(menuName));
+            if (string.IsNullOrWhiteSpace(menuName))
+            {
+                throw new ArgumentNullException(nameof(menuName));
+            }
+
+            if (price <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(price));
+            }
+
+            this.Id = Guid.NewGuid();
+            this.MenuName = menuName;
             this.Price = price;
         }
 
         /// <summary>
         /// Идентификатор.
         /// </summary>
-        public Guid Id { get; }
+        public Guid Id { get; protected set; }
 
         /// <summary>
         /// Название блюда.
         /// </summary>
-        public string MenuName { get; }
+        public string MenuName { get; protected set; }
 
         /// <summary>
         /// Цена блюда.
         /// </summary>
-        public double Price { get; }
+        public decimal Price { get; protected set; }
 
         /// <inheritdoc/>
-        public override bool Equals(object? obj)
+        public override string ToString()
+            => this.MenuName + ", " + this.Price;
+
+        /// <inheritdoc/>
+        public bool Equals(Product? other)
         {
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj is not Product)
-            {
-                return false;
-            }
-
-            return Equals((obj as Product)?.Id, this.Id);
+            return Equals(this.Id, other?.Id);
         }
 
         /// <inheritdoc/>
