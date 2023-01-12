@@ -21,9 +21,12 @@ namespace Domain.Tests
         public void Ctor_Valid_DoesnotThrowException()
         {
             // Arrange
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new ListItem(3));
+            Assert.DoesNotThrow(() => _ = new ListItem(3, order));
         }
 
         /// <summary>
@@ -36,9 +39,27 @@ namespace Domain.Tests
         public void Ctor_WrongQuantity_ThrowException(int quantity)
         {
             // Arrange
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+
             // Act
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity, order));
+        }
+
+        /// <summary>
+        /// Тест на конструктор с неправильным заказом.
+        /// </summary>
+        /// <param name="order"> Заказ.</param>
+        [Test]
+        [TestCase(null)]
+
+        public void Ctor_WrongOrder_ThrowException(Order? order)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => _ = new ListItem(2, order));
         }
     }
 }

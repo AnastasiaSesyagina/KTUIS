@@ -37,7 +37,6 @@ namespace Domain
             this.FirstName = firstName;
             this.LastName = lastName;
             this.PhoneNumber = phoneNumber;
-
             this.FullName =
                 string.Concat(this.LastName, " ", this.FirstName);
         }
@@ -66,6 +65,21 @@ namespace Domain
         /// Номер телефона.
         /// </summary>
         public string PhoneNumber { get; protected set; }
+
+        /// <summary>
+        /// Заказы.
+        /// </summary>
+        public ISet<Order> Orders { get; set; } = new HashSet<Order>();
+
+        /// <summary>
+        /// Добавление заказов покупателю.
+        /// </summary>
+        /// <param name="order"> Заказ. </param>
+        public void AddOrderToCustomer(Order order)
+        {
+            this.Orders.Add(order);
+            order.Customer = this;
+        }
 
         /// <inheritdoc/>
         public override string ToString()

@@ -19,9 +19,13 @@ namespace Domain.Tests
         public void Ctor_Valid_DoesnotThrowException()
         {
             // Arrange
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            ListItem listItem = new ListItem(2, order);
+
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new Product("Пицца", 499));
+            Assert.DoesNotThrow(() => _ = new Product("Пицца", 499, listItem));
         }
 
         /// <summary>
@@ -34,9 +38,13 @@ namespace Domain.Tests
         public void Ctor_WrongProductName_ThrowException(string? menuName)
         {
             // Arrange
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            ListItem listItem = new ListItem(2, order);
+
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Product(menuName, 499));
+            Assert.Throws<ArgumentNullException>(() => _ = new Product(menuName, 499, listItem));
         }
 
         /// <summary>
@@ -49,11 +57,28 @@ namespace Domain.Tests
         public void Ctor_WrongPrice_ThrowException(decimal price)
         {
             // Arrange
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            ListItem listItem = new ListItem(2, order);
+
             // Act
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Product("Пицца", price));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Product("Пицца", price, listItem));
         }
 
+        /// <summary>
+        /// Тест на конструктор с неправильной записью блюда.
+        /// </summary>
+        /// <param name="listItem"> Запись блюда в заказе.</param>
+        [Test]
+        [TestCase(null)]
+        public void Ctor_WrongListItem_ThrowException(ListItem listItem)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => _ = new Product("Пицца", 499, listItem));
+        }
 
         /// <summary>
         /// Проверка на эквивиалентность двух одинаковых экземпляров.
@@ -62,7 +87,10 @@ namespace Domain.Tests
         public void AreEquals_Success()
         {
             // Arrange
-            var product = new Product("Пицца", 499);
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            ListItem listItem = new ListItem(2, order);
+            var product = new Product("Пицца", 499, listItem);
             var product2 = product;
 
             // Act & Assert
@@ -76,7 +104,10 @@ namespace Domain.Tests
         public void ToString_ValidData_Success()
         {
             // Arrange
-            var product = new Product("Пицца", 499);
+            Customer customer = new Customer("Иванов", "Иван", "88888888888");
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            ListItem listItem = new ListItem(2, order);
+            var product = new Product("Пицца", 499, listItem);
             var expected = "Пицца, 499";
 
             // Act & Assert

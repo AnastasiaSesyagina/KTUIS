@@ -14,8 +14,9 @@ namespace Domain
         /// </summary>
         /// <param name="menuName"> Название блюда. </param>
         /// <param name="price"> Цена блюда. </param>
+        /// <param name="listItem"> Запись блюда в заказе. </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Product(string menuName, decimal price)
+        public Product(string menuName, decimal price, ListItem listItem)
         {
             if (string.IsNullOrWhiteSpace(menuName))
             {
@@ -30,6 +31,7 @@ namespace Domain
             this.Id = Guid.NewGuid();
             this.MenuName = menuName;
             this.Price = price;
+            this.ListItem = listItem ?? throw new ArgumentNullException(nameof(listItem));
         }
 
         /// <summary>
@@ -46,6 +48,11 @@ namespace Domain
         /// Цена блюда.
         /// </summary>
         public decimal Price { get; protected set; }
+
+        /// <summary>
+        /// Запись блюда в заказе.
+        /// </summary>
+        public ListItem ListItem { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
