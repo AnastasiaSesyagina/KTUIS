@@ -20,12 +20,11 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
-            ListItem listItem = new ListItem(2, order);
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
 
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new Product("Пицца", 499, listItem));
+            Assert.DoesNotThrow(() => _ = new Product("Пицца", 499));
         }
 
         /// <summary>
@@ -39,12 +38,11 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
-            ListItem listItem = new ListItem(2, order);
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
 
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Product(menuName, 499, listItem));
+            Assert.Throws<ArgumentNullException>(() => _ = new Product(menuName, 499));
         }
 
         /// <summary>
@@ -58,12 +56,11 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
-            ListItem listItem = new ListItem(2, order);
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
 
             // Act
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Product("Пицца", price, listItem));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new Product("Пицца", price));
         }
 
         /// <summary>
@@ -77,7 +74,7 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Product("Пицца", 499, listItem));
+            Assert.Throws<ArgumentNullException>(() => _ = new Product("Пицца", 499));
         }
 
         /// <summary>
@@ -88,10 +85,10 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
-            ListItem listItem = new ListItem(2, order);
-            var product = new Product("Пицца", 499, listItem);
-            var product2 = product;
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
+            var product = new Product("Пицца", 499);
+            ListItem listItem = new ListItem(2, order, product);           
+            var product2 = new Product("Пицца", 499);
 
             // Act & Assert
             Assert.That(product, Is.EqualTo(product2));
@@ -105,9 +102,8 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
-            ListItem listItem = new ListItem(2, order);
-            var product = new Product("Пицца", 499, listItem);
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
+            var product = new Product("Пицца", 499);
             var expected = "Пицца, 499";
 
             // Act & Assert

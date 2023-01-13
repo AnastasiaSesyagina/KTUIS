@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ListItemTests.cs" company="ActiVia">
+// Copyright (c) ActiVia 2022.
+// </copyright>
+
 
 namespace Domain.Tests
 {
@@ -22,11 +21,12 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
+            Product product = new Product("Пицца", 499);
 
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new ListItem(3, order));
+            Assert.DoesNotThrow(() => _ = new ListItem(3, order, product));
         }
 
         /// <summary>
@@ -40,11 +40,12 @@ namespace Domain.Tests
         {
             // Arrange
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
-            Order order = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00));
+            Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
+            Product product = new Product("Пицца", 499);
 
             // Act
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity, order));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity, order, product));
         }
 
         /// <summary>
@@ -59,7 +60,8 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new ListItem(2, order));
+            Product product = new Product("Пицца", 499);
+            Assert.Throws<ArgumentNullException>(() => _ = new ListItem(2, order, product));
         }
     }
 }

@@ -14,9 +14,8 @@ namespace Domain
         /// </summary>
         /// <param name="menuName"> Название блюда. </param>
         /// <param name="price"> Цена блюда. </param>
-        /// <param name="listItem"> Запись блюда в заказе. </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Product(string menuName, decimal price, ListItem listItem)
+        public Product(string menuName, decimal price)
         {
             if (string.IsNullOrWhiteSpace(menuName))
             {
@@ -31,35 +30,43 @@ namespace Domain
             this.Id = Guid.NewGuid();
             this.MenuName = menuName;
             this.Price = price;
-            this.ListItem = listItem ?? throw new ArgumentNullException(nameof(listItem));
+        }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Product"/>.
+        /// Пустой конструктор для работы с ORM.
+        /// </summary>
+        [Obsolete("For ORM", true)]
+        protected Product()
+        {
         }
 
         /// <summary>
         /// Идентификатор.
         /// </summary>
-        public Guid Id { get; protected set; }
+        public virtual Guid Id { get; protected set; }
 
         /// <summary>
         /// Название блюда.
         /// </summary>
-        public string MenuName { get; protected set; }
+        public virtual string MenuName { get; protected set; }
 
         /// <summary>
         /// Цена блюда.
         /// </summary>
-        public decimal Price { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
         /// <summary>
         /// Запись блюда в заказе.
         /// </summary>
-        public ListItem ListItem { get; set; }
+        public virtual ListItem ListItem { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
             => this.MenuName + ", " + this.Price;
 
         /// <inheritdoc/>
-        public bool Equals(Product? other)
+        public virtual bool Equals(Product? other)
         {
             return Equals(this.Id, other?.Id);
         }

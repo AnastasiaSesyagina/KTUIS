@@ -14,7 +14,6 @@ namespace Domain
         /// </summary>
         /// <param name="lastName"> Фамилия. </param>
         /// <param name="firstName"> Имя. </param>
-        /// <param name="middleName"> Отчество. </param>
         /// <param name="phoneNumber"> Номер телефона. </param>
         public Customer(string lastName, string firstName, string phoneNumber)
         {
@@ -42,40 +41,49 @@ namespace Domain
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Customer"/>.
+        /// Пустой конструктор для работы с ORM.
+        /// </summary>
+        [Obsolete("For ORM", true)]
+        protected Customer()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор.
         /// </summary>
-        public Guid Id { get; protected set; }
+        public virtual Guid Id { get; protected set; }
 
         /// <summary>
         /// Фамилия.
         /// </summary>
-        public string FirstName { get; protected set; }
+        public virtual string FirstName { get; protected set; }
 
         /// <summary>
         /// Имя.
         /// </summary>
-        public string LastName { get; protected set; }
+        public virtual string LastName { get; protected set; }
 
         /// <summary>
         /// Полное имя.
         /// </summary>
-        public string FullName { get; protected set; }
+        public virtual string FullName { get; protected set; }
 
         /// <summary>
         /// Номер телефона.
         /// </summary>
-        public string PhoneNumber { get; protected set; }
+        public virtual string PhoneNumber { get; protected set; }
 
         /// <summary>
         /// Заказы.
         /// </summary>
-        public ISet<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ISet<Order> Orders { get; set; } = new HashSet<Order>();
 
         /// <summary>
         /// Добавление заказов покупателю.
         /// </summary>
         /// <param name="order"> Заказ. </param>
-        public void AddOrderToCustomer(Order order)
+        public virtual void AddOrderToCustomer(Order order)
         {
             this.Orders.Add(order);
             order.Customer = this;
@@ -86,7 +94,7 @@ namespace Domain
             => this.FullName;
 
         /// <inheritdoc/>
-        public bool Equals(Customer? other)
+        public virtual bool Equals(Customer? other)
         {
             return Equals(this.Id, other?.Id);
         }

@@ -23,7 +23,7 @@ namespace Domain.Tests
 
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00)));
+            Assert.DoesNotThrow(() => _ = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00)));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Domain.Tests
 
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Order(address, customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00)));
+            Assert.Throws<ArgumentNullException>(() => _ = new Order(address, customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00)));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Order("ул. Космонавтов, д. 11", customer, new TimeOnly(10, 00, 00), new TimeOnly(10, 50, 00)));
+            Assert.Throws<ArgumentNullException>(() => _ = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00)));
         }
     }
 }

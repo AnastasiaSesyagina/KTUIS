@@ -20,7 +20,7 @@ namespace Domain
         /// <param name="deliveryTime"> Время доставки заказа. </param>
         /// <exception cref="ArgumentNullException">Выброс ошибки.</exception>
 
-        public Order(string address, Customer customer, TimeOnly getTime, TimeOnly deliveryTime)
+        public Order(string address, Customer customer, DateTime getTime, DateTime deliveryTime)
         {
             if (string.IsNullOrWhiteSpace(address))
             {
@@ -28,54 +28,63 @@ namespace Domain
             }
 
             this.Id = Guid.NewGuid();
-            this.Adress = address;
+            this.Address = address;
             this.Customer = customer ?? throw new ArgumentNullException(nameof(customer));
             this.GetTime = getTime;
             this.DeliveryTime = deliveryTime;
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Order"/>.
+        /// Пустой конструктор для работы с ORM.
+        /// </summary>
+        [Obsolete("For ORM", true)]
+        protected Order()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор.
         /// </summary>
-        public Guid Id { get; protected set; }
+        public virtual Guid Id { get; protected set; }
 
         /// <summary>
         /// Адрес доставки заказа.
         /// </summary>
-        public string Adress { get; protected set; }
+        public virtual string Address { get; protected set; }
 
         /// <summary>
         /// Время получения заказа.
         /// </summary>
-        public TimeOnly GetTime { get; protected set; }
+        public virtual DateTime GetTime { get; protected set; }
 
         /// <summary>
         /// Время доставки заказа.
         /// </summary>
-        public TimeOnly DeliveryTime { get; protected set; }
+        public virtual DateTime DeliveryTime { get; protected set; }
 
         /// <summary>
         /// Покупатель.
         /// </summary>
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
         /// <summary>
         /// Записи блюд в заказе.
         /// </summary>
-        public ISet<ListItem> ListItems { get; set; } = new HashSet<ListItem>();
+        public virtual ISet<ListItem> ListItems { get; set; } = new HashSet<ListItem>();
 
         /// <summary>
         /// Добавление записи блюда в заказ.
         /// </summary>
         /// <param name="listItem"> Запись блюда в заказе. </param>
-        public void AddListItemToOrder(ListItem listItem)
+        public virtual void AddListItemToOrder(ListItem listItem)
         {
             this.ListItems.Add(listItem);
             listItem.Order = this;
         }
 
         /// <inheritdoc/>
-        public bool Equals(Order? other)
+        public virtual bool Equals(Order? other)
         {
             return Equals(this.Id, other?.Id);
         }
