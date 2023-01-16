@@ -7,15 +7,15 @@ namespace Domain.Tests
     using Domain;
 
     /// <summary>
-    /// Модульные тесты для класса Customer.
+    /// РњРѕРґСѓР»СЊРЅС‹Рµ С‚РµСЃС‚С‹ РґР»СЏ РєР»Р°СЃСЃР° Customer.
     /// </summary>
     [TestFixture]
     public class CustomerTests
     {
         /// <summary>
-        /// Тест на конструктор с правильным ФИ.
+        /// РўРµСЃС‚ РЅР° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїСЂР°РІРёР»СЊРЅС‹Рј Р¤Р.
         /// </summary>
-        /// <param name="middleName"> Отчество. </param>
+        /// <param name="middleName"> РћС‚С‡РµСЃС‚РІРѕ. </param>
         [Test]
 
         public void Ctor_Valid_DoesnotThrowException()
@@ -23,13 +23,13 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new Customer("Иванов", "Иван", "88888888888"));
+            Assert.DoesNotThrow(() => _ = new Customer("РРІР°РЅРѕРІ", "РРІР°РЅ", "88888888888"));
         }
 
         /// <summary>
-        /// Тест на конструктор с неправильной фамилией.
+        /// РўРµСЃС‚ РЅР° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РЅРµРїСЂР°РІРёР»СЊРЅРѕР№ С„Р°РјРёР»РёРµР№.
         /// </summary>
-        /// <param name="lastName"> Фамилия.</param>
+        /// <param name="lastName"> Р¤Р°РјРёР»РёСЏ.</param>
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -38,13 +38,13 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Customer(lastName, "Иван", "88888888888"));
+            Assert.Throws<ArgumentNullException>(() => _ = new Customer(lastName, "РРІР°РЅ", "88888888888"));
         }
 
         /// <summary>
-        /// Тест на конструктор с неправильным именем.
+        /// РўРµСЃС‚ РЅР° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РЅРµРїСЂР°РІРёР»СЊРЅС‹Рј РёРјРµРЅРµРј.
         /// </summary>
-        /// <param name="firstName"> Имя.</param>
+        /// <param name="firstName"> РРјСЏ.</param>
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -53,13 +53,13 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Customer("Иванов", firstName, "88888888888"));
+            Assert.Throws<ArgumentNullException>(() => _ = new Customer("РРІР°РЅРѕРІ", firstName, "88888888888"));
         }
 
         /// <summary>
-        /// Тест на конструктор с пустым номером телефона.
+        /// РўРµСЃС‚ РЅР° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїСѓСЃС‚С‹Рј РЅРѕРјРµСЂРѕРј С‚РµР»РµС„РѕРЅР°.
         /// </summary>
-        /// <param name="phoneNumber"> Номер телефона.</param>
+        /// <param name="phoneNumber"> РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°.</param>
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -68,17 +68,17 @@ namespace Domain.Tests
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Customer("Иванов", "Иван", phoneNumber));
+            Assert.Throws<ArgumentNullException>(() => _ = new Customer("РРІР°РЅРѕРІ", "РРІР°РЅ", phoneNumber));
         }
 
         /// <summary>
-        /// Проверка на эквивиалентность двух одинаковых экземпляров.
+        /// РџСЂРѕРІРµСЂРєР° РЅР° СЌРєРІРёРІРёР°Р»РµРЅС‚РЅРѕСЃС‚СЊ РґРІСѓС… РѕРґРёРЅР°РєРѕРІС‹С… СЌРєР·РµРјРїР»СЏСЂРѕРІ.
         /// </summary>
         [Test]
         public void AreEquals_Success()
         {
             // Arrange
-            var customer = new Customer("Иванов", "Иван", "88888888888");
+            var customer = new Customer("РРІР°РЅРѕРІ", "РРІР°РЅ", "88888888888");
             var customer2 = customer;
 
             // Act & Assert
@@ -86,14 +86,14 @@ namespace Domain.Tests
         }
 
         /// <summary>
-        /// Проверка на преобразование в строку. Имеется отчество.
+        /// РџСЂРѕРІРµСЂРєР° РЅР° РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІ СЃС‚СЂРѕРєСѓ. РРјРµРµС‚СЃСЏ РѕС‚С‡РµСЃС‚РІРѕ.
         /// </summary>
         [Test]
         public void ToString_ValidData_Success()
         {
             // Arrange
-            var customer = new Customer("Иванов", "Иван", "88888888888");
-            var expected = "Иванов Иван";
+            var customer = new Customer("РРІР°РЅРѕРІ", "РРІР°РЅ", "88888888888");
+            var expected = "РРІР°РЅРѕРІ РРІР°РЅ";
 
             // Act & Assert
             Assert.That(customer.ToString(), Is.EqualTo(expected));

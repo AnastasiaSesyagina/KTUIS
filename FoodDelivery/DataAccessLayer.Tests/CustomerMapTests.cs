@@ -9,19 +9,19 @@ namespace DataAccessLayer.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Тесты маппингов для класса Customer.
+    /// РўРµСЃС‚С‹ РјР°РїРїРёРЅРіРѕРІ РґР»СЏ РєР»Р°СЃСЃР° Customer.
     /// </summary>
     [TestFixture]
     internal class CustomerMapTests : MapTests
     {
         /// <summary>
-        /// Тест правильной работы маппинга.
+        /// РўРµСЃС‚ РїСЂР°РІРёР»СЊРЅРѕР№ СЂР°Р±РѕС‚С‹ РјР°РїРїРёРЅРіР°.
         /// </summary>
         [Test]
         public void PersistenceSpecification_ValidData_Success()
         {
             // Arrange
-            var customer = new Customer("Иванов", "Иван", "88888888888");
+            var customer = new Customer("РРІР°РЅРѕРІ", "РРІР°РЅ", "88888888888");
 
             // Act & Assert
             new PersistenceSpecification<Customer>(this.Session)

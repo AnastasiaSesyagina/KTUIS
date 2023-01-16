@@ -9,7 +9,7 @@ namespace DataAccessLayer.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Тесты маппингов для класса Album.
+    /// Тесты маппингов для класса Product.
     /// </summary>
     [TestFixture]
     internal class ProductMapTests : MapTests
