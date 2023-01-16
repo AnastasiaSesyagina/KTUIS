@@ -26,7 +26,7 @@ namespace Domain.Tests
 
             // Act
             // Assert
-            Assert.DoesNotThrow(() => _ = new ListItem(3, order, product));
+            Assert.DoesNotThrow(() => _ = new ListItem(3, product));
         }
 
         /// <summary>
@@ -45,23 +45,7 @@ namespace Domain.Tests
 
             // Act
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity, order, product));
-        }
-
-        /// <summary>
-        /// Тест на конструктор с неправильным заказом.
-        /// </summary>
-        /// <param name="order"> Заказ.</param>
-        [Test]
-        [TestCase(null)]
-
-        public void Ctor_WrongOrder_ThrowException(Order? order)
-        {
-            // Arrange
-            // Act
-            // Assert
-            Product product = new Product("Пицца", 499);
-            Assert.Throws<ArgumentNullException>(() => _ = new ListItem(2, order, product));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ListItem(quantity, product));
         }
     }
 }

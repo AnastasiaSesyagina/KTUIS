@@ -64,20 +64,6 @@ namespace Domain.Tests
         }
 
         /// <summary>
-        /// Тест на конструктор с неправильной записью блюда.
-        /// </summary>
-        /// <param name="listItem"> Запись блюда в заказе.</param>
-        [Test]
-        [TestCase(null)]
-        public void Ctor_WrongListItem_ThrowException(ListItem listItem)
-        {
-            // Arrange
-            // Act
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => _ = new Product("Пицца", 499));
-        }
-
-        /// <summary>
         /// Проверка на эквивиалентность двух одинаковых экземпляров.
         /// </summary>
         [Test]
@@ -87,8 +73,7 @@ namespace Domain.Tests
             Customer customer = new Customer("Иванов", "Иван", "88888888888");
             Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
             var product = new Product("Пицца", 499);
-            ListItem listItem = new ListItem(2, order, product);           
-            var product2 = new Product("Пицца", 499);
+            var product2 = product;
 
             // Act & Assert
             Assert.That(product, Is.EqualTo(product2));

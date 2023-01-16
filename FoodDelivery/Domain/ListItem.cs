@@ -17,10 +17,9 @@ namespace Domain
         /// </summary>
         /// <param name="quantity"> Количество. </param>
         /// <param name="order"> Заказ. </param>
-        public ListItem(int quantity, Order order, Product product)
+        public ListItem(int quantity, Product product)
         {
            this.Id = Guid.NewGuid();
-           this.Order = order ?? throw new ArgumentNullException(nameof(order));
            this.Add(product, quantity);
         }
 
@@ -51,7 +50,7 @@ namespace Domain
         /// <summary>
         /// Блюда.
         /// </summary>
-        public virtual Product Products { get; set; }
+        public virtual ISet<Product> Products { get; set; } = new HashSet<Product>();
 
         /// <inheritdoc/>
         public virtual bool Equals(ListItem? other)
@@ -83,7 +82,7 @@ namespace Domain
             }
 
             this.Quantity = count;
-            this.Products = product;
+            this.Products.Add(product);
             product.ListItem = this;
         }
     }

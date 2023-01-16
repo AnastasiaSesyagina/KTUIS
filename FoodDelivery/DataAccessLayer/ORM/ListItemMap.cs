@@ -17,7 +17,7 @@ namespace DataAccessLayer.ORM
         /// </summary>
         public ListItemMap()
         {
-            this.Table("ListItem");
+            this.Table("ListItems");
 
             this.Id(x => x.Id);
 
@@ -27,7 +27,7 @@ namespace DataAccessLayer.ORM
 
             this.References(x => x.Order);
 
-            this.HasOne(x => x.Products);
+            this.HasMany(x => x.Products);
         }
     }
 }

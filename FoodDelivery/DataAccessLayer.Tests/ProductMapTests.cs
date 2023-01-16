@@ -26,7 +26,7 @@ namespace DataAccessLayer.Tests
             Order order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
             this.Session.Save(order);
             Product product = new Product("Пицца", 499);
-            ListItem listItem = new ListItem(3, order, product);
+            ListItem listItem = new ListItem(3, product);
             this.Session.Save(listItem);
 
             // act & assert

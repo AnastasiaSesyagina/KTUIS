@@ -17,7 +17,7 @@ namespace DataAccessLayer.ORM
         /// </summary>
         public CustomerMap()
         {
-            this.Table("Customer");
+            this.Table("Customers");
 
             this.Id(x => x.Id);
 

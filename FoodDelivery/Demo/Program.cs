@@ -22,7 +22,7 @@ namespace Demo
             var customer = new Customer("Иванов", "Иван", "88888888888");
             var order = new Order("ул. Космонавтов, д. 11", customer, new DateTime(2022, 12, 20, 10, 00, 00), new DateTime(2022, 12, 20, 10, 50, 00));
             var product = new Product("Пицца", 499);
-            var listItem = new ListItem(2, order, product);
+            var listItem = new ListItem(2, product);
 
             customer.Orders.Add(order);
             order.ListItems.Add(listItem);
@@ -41,10 +41,12 @@ namespace Demo
 
             using (var session = sessionFactory.OpenSession())
             {
-                session.Save(product);
-                session.Save(listItem);
-                session.Save(order);
-                session.Save(customer);
+                // Скорее всего порядок такой:
+                // т.к. Products --> ListItems --> Orders --> Customers
+                session.Save(customer); // 1
+                session.Save(order); // 2
+                session.Save(listItem); // 3
+                session.Save(product); // 4
 
                 session.Flush();
             }

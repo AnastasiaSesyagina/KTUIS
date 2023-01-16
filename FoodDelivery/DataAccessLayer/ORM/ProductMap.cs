@@ -17,7 +17,7 @@ namespace DataAccessLayer.ORM
         /// </summary>
         public ProductMap()
         {
-            this.Table("Product");
+            this.Table("Products");
 
             this.Id(x => x.Id);
 
@@ -31,9 +31,7 @@ namespace DataAccessLayer.ORM
                 .Not
                 .Nullable();
 
-            this.References(x => x.ListItem)
-                .Not
-                .Nullable();
+            this.References(x => x.ListItem);
         }
     }
 }
